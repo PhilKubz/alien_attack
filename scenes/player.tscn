@@ -12,7 +12,7 @@ position = Vector2(7, -1)
 motion_mode = 1
 script = ExtResource("1_cvold")
 
-[node name="PlayerShip" type="Sprite2D" parent="."]
+[node name="Sprite2D" type="Sprite2D" parent="."]
 rotation = 1.5708
 scale = Vector2(0.2, 0.2)
 texture = ExtResource("2_xt0yk")
@@ -20,3 +20,5 @@ texture = ExtResource("2_xt0yk")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(4, 0)
 shape = SubResource("CapsuleShape2D_hehsb")
+
+[node name="RocketContainer" type="Node" parent="."]
