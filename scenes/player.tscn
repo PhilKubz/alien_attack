@@ -1,7 +1,43 @@
-[gd_scene load_steps=4 format=3 uid="uid://rrpi0mw8e0fl"]
+[gd_scene load_steps=12 format=3 uid="uid://rrpi0mw8e0fl"]
 
 [ext_resource type="Script" path="res://scripts/player.gd" id="1_cvold"]
 [ext_resource type="Texture2D" uid="uid://nrvicje4rcle" path="res://assets/textures/player_ship.png" id="2_xt0yk"]
+[ext_resource type="AudioStream" uid="uid://is78ev1tqfx7" path="res://assets/audio/sfx_laser2.wav" id="3_le3v8"]
+
+[sub_resource type="Gradient" id="Gradient_8smr6"]
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_ftcw1"]
+gradient = SubResource("Gradient_8smr6")
+
+[sub_resource type="Gradient" id="Gradient_klu5x"]
+offsets = PackedFloat32Array(0.0147783, 0.280788, 0.517241, 1)
+colors = PackedColorArray(0.995454, 0.997373, 2.31028e-06, 0, 1, 0.433333, 0, 1, 1, 0.241944, 0, 0.558333, 1, 0, 0, 0)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_tfqp4"]
+gradient = SubResource("Gradient_klu5x")
+
+[sub_resource type="Curve" id="Curve_8hff1"]
+_data = [Vector2(0.00404859, 0.508897), 0.0, 0.0, 0, 0, Vector2(0.99999, 1), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="CurveTexture" id="CurveTexture_yf4cb"]
+curve = SubResource("Curve_8hff1")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_x8gwx"]
+lifetime_randomness = 0.3
+emission_shape = 3
+emission_box_extents = Vector3(1, 15, 1)
+particle_flag_disable_z = true
+spread = 51.55
+gravity = Vector3(0, 0, 0)
+initial_velocity_min = -200.0
+orbit_velocity_min = 0.0
+orbit_velocity_max = 0.0
+scale_min = 10.0
+scale_max = 10.0
+scale_curve = SubResource("CurveTexture_yf4cb")
+color_ramp = SubResource("GradientTexture1D_tfqp4")
+color_initial_ramp = SubResource("GradientTexture1D_ftcw1")
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_hehsb"]
 radius = 25.0
@@ -13,6 +49,12 @@ collision_mask = 2
 motion_mode = 1
 script = ExtResource("1_cvold")
 
+[node name="FlameParticleEffect" type="GPUParticles2D" parent="."]
+position = Vector2(-37, 1)
+amount = 100
+process_material = SubResource("ParticleProcessMaterial_x8gwx")
+lifetime = 0.3
+
 [node name="Sprite2D" type="Sprite2D" parent="."]
 rotation = 1.5708
 scale = Vector2(0.2, 0.2)
@@ -23,3 +65,6 @@ position = Vector2(4, 0)
 shape = SubResource("CapsuleShape2D_hehsb")
 
 [node name="RocketContainer" type="Node" parent="."]
+
+[node name="RocketLaser" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("3_le3v8")
