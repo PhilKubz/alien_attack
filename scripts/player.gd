@@ -2,7 +2,7 @@ extends CharacterBody2D
 
 signal damage_taken
 
-var speed = 400
+var speed = 550
 var rocket_scene = preload("res://scenes/rocket.tscn")
 
 @onready var rocket_container = $RocketContainer

@@ -1,0 +1,38 @@
+[gd_scene load_steps=4 format=3 uid="uid://s2ts4w5bv2od"]
+
+[ext_resource type="PackedScene" uid="uid://bg6gvi0evg36c" path="res://scenes/enemy.tscn" id="2_o261g"]
+
+[sub_resource type="Curve2D" id="Curve2D_aw5wb"]
+_data = {
+"points": PackedVector2Array(-7.5, 1.5, 7.5, -1.5, -442, 837, 0, 0, 0, 0, -134, 719, -115.733, 21.8386, 115.733, -21.8386, 206, 696, -219.18, 59.701, 219.18, -59.701, 454, 635, -59.7619, 76.6217, 59.7619, -76.6217, 732, 492, -81, 162, 81, -162, 850, 193, 0, 0, 0, 0, 1338, -3, 0, 0, 0, 0, 1538, -42)
+}
+point_count = 8
+
+[sub_resource type="GDScript" id="GDScript_jg467"]
+script/source = "extends Node2D
+
+@onready var pathfollow = $PathFollow2D
+@onready var enemy1 = $PathFollow2D/Enemy
+
+func _ready():
+	pathfollow.set_progress_ratio(1)
+	
+func _process(delta):
+	pathfollow.progress_ratio -= 0.25 * delta
+	if pathfollow.progress_ratio <= 0:
+		queue_free()
+"
+
+[node name="PathEnemy_01" type="Path2D"]
+curve = SubResource("Curve2D_aw5wb")
+script = SubResource("GDScript_jg467")
+
+[node name="PathFollow2D" type="PathFollow2D" parent="."]
+position = Vector2(1538, -42)
+rotation = -0.192583
+progress = 2317.56
+loop = false
+
+[node name="Enemy" parent="PathFollow2D" instance=ExtResource("2_o261g")]
+scale = Vector2(0.8, 0.8)
+speed = 0
